@@ -34,12 +34,18 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$emit('onSubmit', this.value);
-      console.log(this.value);
+      const note = { title: this.value, tags: this.tags.filter((tag) => tag.isActive) };
+      this.$emit('onSubmit', note);
       this.value = '';
+      const tags = this.tags.map((item) => {
+        const tag = { ...item, isActive: false };
+        return tag;
+      });
+      this.tags = tags;
     },
     handleTagClick(tag) {
-      console.log('tag: ', tag);
+      const currentTag = this.tags.find((tagItem) => tagItem.title === tag.title);
+      currentTag.isActive = !currentTag.isActive;
     },
   },
 };

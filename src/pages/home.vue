@@ -15,11 +15,14 @@ export default {
       notes: [
         {
           title: 'Learn Vue3',
-          tags: ['work'],
+          tags: [{ title: 'work', isActive: true }],
         },
         {
           title: 'Finish Course',
-          tags: ['work', 'home'],
+          tags: [
+            { title: 'work', isActive: true },
+            { title: 'home', isActive: true },
+          ],
         },
       ],
     };
@@ -30,7 +33,6 @@ export default {
   watch: {
     notes: {
       handler(updateList) {
-        console.log('updateList: ', updateList);
         localStorage.setItem('notes', JSON.stringify(updateList));
       },
       deep: true,
@@ -40,14 +42,12 @@ export default {
     getNotes() {
       const localNotes = localStorage.getItem('notes');
       if (localNotes) {
-        console.log('localNotes: ', localNotes);
         this.notes = JSON.parse(localNotes);
       }
     },
-    handlerSubmit(title) {
-      const note = { title, tags: [] };
+    handlerSubmit({ title, tags }) {
+      const note = { title, tags };
       this.notes.push(note);
-      console.log('this.notes: ', this.notes);
     },
     handleRemove(idx) {
       this.notes.splice(idx, 1);

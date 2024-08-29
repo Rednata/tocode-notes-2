@@ -3,12 +3,12 @@
     <div class="tags-list">
       <button
         class="tag-item"
-        :class="{isPreview: isPreview, isActive: isActive}"
+        :class="{isPreview: isPreview, isActive: item.isActive && !isPreview}"
         v-for="item in items"
         @click="$emit('onItemClick', item)"
         :key="item"
         >
-        <span >{{ item }}</span>
+        <span >{{ item.title }}</span>
 
       </button>
     </div>
@@ -34,6 +34,8 @@ export default {
   data() {
     return {
     };
+  },
+  methods: {
   },
 };
 </script>
